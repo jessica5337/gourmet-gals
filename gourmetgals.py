@@ -1,14 +1,13 @@
-class Dessert(object):
+class Dessert(object): #Class
    def __init__(self, apples=1, flour=1, sugar=1):
        self.apples = apples
        self.flour = flour
        self.sugar = sugar
 
-
-def displayRecipe():
+def displayRecipe(): #Function Definition
    file = open("GrandmasRecipe.txt",'r')
    file_contents = file.readlines()
-   recipe = []
+   recipe = [] #List
    for file_content in file_contents:
        recipe.append(file_content.strip("\n"))
    for x in recipe:
@@ -17,9 +16,9 @@ def displayRecipe():
 
 def displayCorrect():
    file2 = open("GrandmasRecipeCorrect.txt", 'r')
-   file_contents2 = file2.readlines()
+   file_contents2 = file2.readlines() #File reading
    recipe2 = []
-   for file_content in file_contents2:
+   for file_content in file_contents2: #For Loop
        recipe2.append(file_content.strip("\n"))
    for x in recipe2:
        print(x)
@@ -30,12 +29,19 @@ def ifCorrect():
          "Be sure to write it down and save it this time ;)")
    displayCorrect()
 
+def Check(user, correct):
+   if int(user) < int(correct): #If Statement
+       print ("Your guess is too low :/")
+   elif int(user) > int(correct):
+       print ("Your guess is too high :(")
+   else:
+       print ("Good guess, you're right!")
+
 def main():
 
-   correctApples = 10
+   correctApples = 10 #Assignment Statement
    correctSugar = 1
    correctFlour = 4
-
 
    print("Hello! You're hosting a party and want to make grandma's "
          "special sour apple pie. When you pull out the recipe, "
@@ -46,38 +52,36 @@ def main():
    print ("Here's what you have, the first 3 items are missing their quantities:")
    print("")
    print("")
-   (displayRecipe())
-   print ("Let's get started!")
+   displayRecipe() #Function Call
+   print ("Let's get started!") #Print Statement
 
    turn = 0
-   while turn < 6:
-       try:
+   while turn < 6: #While Loop
+       try: #Try Except Block
            pie = Dessert(input("How many apples?:"),input("How many cups of flour?"), input("How many cups of sugar?"))
            print ("Great! Let's try it out. Baking...")
            print("")
            print("")
            print("")
 
-
-       except (NameError):
+       except (NameError,TypeError):
            print("Whoops. Please enter a valid number")
            pie = Dessert(input("How many apples?:"), input("How many cups of flour?"), input("How many cups of sugar?"))
            turn += 1
 
-       if pie.apples == correctApples:
-           print ("Good guess! You added the right number of apples")
-       else:
-           print ("Mmmm. Not quite the right number of apples")
-       if pie.flour == correctFlour:
-           print ("Sweet! You added the right amount of flour")
-       else:
-           print ("Yikes, wrong amount of flour")
-       if pie.sugar == correctSugar:
-           print ("Awesome! You added the right amount of sugar")
-       else:
-           print ("Whoops, wrong amount of sugar")
 
-       turn += 1
+
+       print ("Feedback for apples: ")
+       Check(pie.apples, correctApples)
+       print ("")
+       print ("Feedback for flour: ")
+       Check(pie.flour, correctFlour)
+       print ("")
+       print ("Feedback for sugar: ")
+       Check(pie.sugar, correctSugar)
+       print("")
+
+       turn += 1 #+=
 
        if pie.apples == correctApples and pie.flour == correctFlour and pie.sugar == correctSugar:
            ifCorrect()
@@ -91,3 +95,5 @@ def main():
 
 
 main()
+
+
